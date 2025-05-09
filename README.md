@@ -1,4 +1,4 @@
- # FIAP - Faculdade de Informática e Administração Paulista
+# FIAP - Faculdade de Informática e Administração Paulista
 
 <p align="center">
   <a href="https://www.fiap.com.br/">
@@ -42,7 +42,7 @@ Toda a arquitetura do projeto é implementada na nuvem (AWS), garantindo escalab
 ---
 
 ### ⚙️ Simulação com Wokwi – Sensores e ESP32 Virtualizados 
-Nesta nova versão do projeto, abandonamos a geração de dados sintéticos em Python e adotamos a simulação completa do ambiente físico via Wokwi, uma plataforma online que permite programar microcontroladores e sensores em um ambiente virtual de forma realista e interativa. 
+Nesta nova versão do projeto, adotamos a simulação completa do ambiente físico via Wokwi, uma plataforma online que permite programar microcontroladores e sensores em um ambiente virtual de forma realista e interativa. 
 
 #### Estrutura de Simulação: 
 - Microcontrolador: ESP32 (simulado), programado em C++ com base na plataforma Arduino.
@@ -65,6 +65,8 @@ Nesta nova versão do projeto, abandonamos a geração de dados sintéticos em P
 - Aproxima o projeto da realidade industrial, com menor custo e alta replicabilidade pedagógica. 
 
 Essa simulação representa fielmente o comportamento operacional da linha de envase, fornecendo dados compatíveis com um ambiente físico real. Também permite uma transição simples para sensores reais, bastando trocar o ambiente de simulação pelo hardware físico e manter o restante da arquitetura intacta. 
+
+---
 
 ### 🧠 Justificativa Técnica
 <!--
@@ -125,6 +127,8 @@ c) Framework e Justificativa Técnica:
 
 Frameworks como Keras e TensorFlow foram descartados nesta etapa por serem voltados a redes neurais profundas, mais adequadas a problemas com grande volume de dados rotulados. Eles também requerem maior infraestrutura de processamento e complexidade desnecessária neste escopo inicial. 
 
+---
+
 ### 📊 Análise Preditiva com R (Complementar à IA) 
 Embora a detecção de anomalias e o monitoramento online sejam realizados com Python e scikit-learn, o projeto também prevê uma camada complementar de análise preditiva estatística com uso da linguagem R. Essa camada será utilizada para: 
 
@@ -139,6 +143,8 @@ Os scripts R serão executados na nuvem, em ambiente EC2 configurado com RStudio
 Ao final de cada análise estatística, o RStudio Server gera um relatório em formato PDF com gráficos, insights e recomendações, que é armazenado automaticamente no Amazon S3. Este relatório poderá ser baixado diretamente pelo usuário final através de um botão no dashboard Streamlit, facilitando o acesso a análises periódicas profundas. 
 
 Essa camada não interfere diretamente no pipeline de alertas, mas atua como ferramenta de suporte analítico para validar e interpretar melhor os padrões encontrados pelos modelos de machine learning. A execução em nuvem permite automação, compartilhamento e persistência dos scripts de análise em um ambiente escalável, assim como integração futura com dashboards ou relatórios gerados diretamente a partir do RStudio Server hospedado na AWS. 
+
+---
 
 ### 🔄 Pipeline de Execução e Re-Treinamento 
 A pipeline completa do projeto foi desenhada para funcionar de forma contínua e escalável, simulando o comportamento de um sistema produtivo real: 
@@ -195,6 +201,8 @@ O modelo de IA é executado em ambiente separado e registra os alertas diretamen
 
 O Streamlit não realiza a inferência diretamente, mas se conecta ao banco para exibir os alertas previamente identificados pelo modelo de IA em execução contínua no backend. 
 
+---
+
 ### 🧪 Bibliotecas Python Utilizadas
 
 | Biblioteca     | Função                                                                 |
@@ -212,7 +220,6 @@ O Streamlit não realiza a inferência diretamente, mas se conecta ao banco para
 ### ☁️ Infraestrutura em Nuvem (Atual)
 
 Neste projeto, optamos por uma arquitetura 100% baseada em serviços da AWS, priorizando componentes leves, acessíveis e sob controle do time, como `scikit-learn`, AWS Lambda, RDS, IoT Core e S3.  
-A escolha por treinar e executar o modelo com `scikit-learn`, em vez de plataformas como SageMaker, foi tomada com base no escopo do projeto e na estratégia de aprendizado incremental.
 
 **Justificativa por componente:**
 
@@ -221,14 +228,9 @@ A escolha por treinar e executar o modelo com `scikit-learn`, em vez de platafor
 - **RDS (PostgreSQL)**: armazena com segurança os dados recebidos e processados.
 - **Amazon S3**: armazena os modelos `.pkl` gerados e atualizados de forma automatizada.
 - **AWS IoT Core**: recebe dados dos sensores simulados via MQTT.
-- **EC2**: opcionalmente usado para hospedar o app Streamlit com dashboard interativo.
+- **EC2**: usado para hospedar o app Streamlit com dashboard interativo, a aplicação em R e treinar o modelo
 
 Essa infraestrutura garante escalabilidade, custo controlado e facilidade de desenvolvimento colaborativo sem dependência de dispositivos físicos ou servidores locais.
-
-**Nuvem no Projeto Atual:**
-
-- **EC2**: máquina virtual na AWS para hospedar o app Python (Streamlit), permitindo acesso remoto e compartilhado do dashboard com o time e tutores.
-- **RDS (PostgreSQL)**: banco de dados gerenciado e escalável para armazenamento seguro e centralizado dos dados simulados.
 
 **Justificativa geral da nuvem**:  
 A adoção da AWS proporciona escalabilidade, colaboração simultânea, segurança de dados e simula um cenário corporativo real.  
@@ -292,6 +294,7 @@ enterprise-challenge-phase03/
 ├──README                # README com racional do projeto
 ├──Img/                  # Pasta com imagens
 │   ├── arquitetura.jpg  # Diagrama de arquitetura
+│   ├── logo-fiap.png    # Logo Fiap
 ```
 
 ## 🔧 Como Executar o Projeto
@@ -308,7 +311,7 @@ Organizar em blocos de código para facilitar.
 ---
 
 ## 🗂 Histórico de Versões
-* 1.0 - 08/05/2025 - REAM.ME e Definição da Arquitetura
+* 1.0 - 08/05/2025 - README e Definição da Arquitetura
 
 ---
 
